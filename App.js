@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import entities from './entities';
 import Physics from './physics';
@@ -14,8 +14,18 @@ export default function App() {
     setRunning(false)
   }, [])
   return (
-    <View style={{flex: 1}}>
-      <Text style={{textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20}}>{currentPoints}</Text>
+    <View style={{flex: 1, flexDirection: 'column'}}>
+      <ImageBackground
+      style={{
+        
+          justifyContent: 'center', height: '100%'
+        
+    }}
+    source={require('./images/background.png')}
+    resizeMode='cover'
+      >
+
+      </ImageBackground>
       <GameEngine
       ref={(ref) => {setGameEngine(ref) }}
       systems={[Physics]}
@@ -48,15 +58,17 @@ export default function App() {
       </GameEngine>
       
       {!running ?
-        <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-          <TouchableOpacity style={{backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10}}
+        <View style={{flex: 0, justifyContent: 'center', alignItems: 'center', bottom: '60%'}}>
+           <Text style={{textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 30, color: 'white', backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10}}>Your score: {currentPoints}</Text>
+          <TouchableOpacity style={{backgroundColor: 'red', paddingHorizontal: 30, paddingVertical: 10}}
           onPress={() => {
             setCurrentPoints(0)
             setRunning(true)
             gameEngine.swap(entities())
           }}
           >
-            <Text style={{fontWeight: 'bold', color: 'white', fontSize: 30}}>START GAME</Text>
+           
+            <Text style={{fontWeight: 'bold', color: 'white', fontSize: 20, textAlign: 'center'}}>START GAME</Text>
           </TouchableOpacity>
 
         </View> : null }

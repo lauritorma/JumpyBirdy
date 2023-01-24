@@ -1,6 +1,6 @@
 import Matter from 'matter-js'
 import React from 'react'
-import { View } from 'react-native'
+import {Image, View } from 'react-native'
 
 const Obstacle = props => {
     const widthBody = props.body.bounds.max.x - props.body.bounds.min.x
@@ -13,7 +13,7 @@ const Obstacle = props => {
 
     return(
         <View style={{
-            borderWidth: 1,
+            borderWidth: 0,
             borderColor: color,
             borderStyle: 'solid',
             position: 'absolute',
@@ -21,7 +21,18 @@ const Obstacle = props => {
             top: yBody,
             width: widthBody,
             height: heightBody
-        }}/>
+        }}>
+            <Image
+            style={{
+        
+                flex:1 , width: undefined, height: undefined,resizeMode: 'cover'
+                
+            }}
+            source={require('../images/tree.png')}
+            >
+
+            </Image>
+        </View>
     )
 }
 

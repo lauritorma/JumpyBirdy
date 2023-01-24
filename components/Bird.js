@@ -1,6 +1,6 @@
 import Matter from 'matter-js'
 import React from 'react'
-import { View } from 'react-native'
+import {Image, View } from 'react-native'
 
 const Bird = props => {
     const widthBody = props.body.bounds.max.x - props.body.bounds.min.x
@@ -13,15 +13,29 @@ const Bird = props => {
 
     return(
         <View style={{
-            borderWidth: 1,
+            borderWidth: 0,
             borderColor: color,
+            
             borderStyle: 'solid',
             position: 'absolute',
             left: xBody,
             top: yBody,
             width: widthBody,
             height: heightBody
-        }}/>
+        }}
+        >
+            <Image
+            style={{
+                width: 65,
+                height: 70,
+                position: 'absolute',
+                marginTop: -15,
+                marginLeft: -6
+                
+            }}
+            source={{uri: 'https://freesvg.org/img/frame-1m.png'}}
+            />
+        </View>
     )
 }
 
