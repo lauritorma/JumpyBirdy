@@ -4,15 +4,23 @@ import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-nati
 import { GameEngine } from 'react-native-game-engine';
 import entities from './entities';
 import Physics from './physics';
+import AudioPlayer from './components/AudioPlayer';
 
 export default function App() {
   const [running, setRunning] = useState(false)
   const [gameEngine, setGameEngine] = useState(null)
   const [currentPoints, setCurrentPoints] = useState(0)
+  const [gameOver, setGameOver] = useState(false)
+
+
+  useEffect(() => {
+    setGameOver(false)
+  }, [])
 
   useEffect(() => {
     setRunning(false)
   }, [])
+
   return (
     <View style={{flex: 1, flexDirection: 'column'}}>
       <ImageBackground
@@ -23,6 +31,7 @@ export default function App() {
     }}
     source={require('./images/background.png')}
     resizeMode='cover'
+    blurRadius={0}
       >
 
       </ImageBackground>
@@ -35,11 +44,13 @@ export default function App() {
         switch(e.type) {
           case 'game_over':
             setRunning(false)
+            setGameOver(true)
             gameEngine.stop()
             
             break;
           case 'new_point':
             setCurrentPoints(currentPoints + 1)
+            {AudioPlayer}
             break;
 
         }
@@ -56,15 +67,23 @@ export default function App() {
         <StatusBar style="auto" hidden={true}/>
 
       </GameEngine>
+
+      {gameOver ?
+        <View style={{flex: 0, justifyContent: 'center', alignItems: 'center', bottom: '60%'}}>
+           <Text className="font-link" style={{textAlign: 'center', fontSize: 40, margin: 30, color: 'white', backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10}}>Your score: {currentPoints}</Text>
+
+        </View> : null }
       
       {!running ?
-        <View style={{flex: 0, justifyContent: 'center', alignItems: 'center', bottom: '60%'}}>
-           <Text style={{textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 30, color: 'white', backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10}}>Your score: {currentPoints}</Text>
+        <View style={{flex: 0, justifyContent: 'center', alignItems: 'center', bottom: '50%'}}>
+          
           <TouchableOpacity style={{backgroundColor: 'red', paddingHorizontal: 30, paddingVertical: 10}}
           onPress={() => {
             setCurrentPoints(0)
             setRunning(true)
+            setGameOver(false)
             gameEngine.swap(entities())
+            
           }}
           >
            

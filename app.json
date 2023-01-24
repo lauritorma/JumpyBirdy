@@ -22,12 +22,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./images/flying.png",
+        "backgroundColor": "black"
+      },
+      "package": "com.lauritorma.JumpyBirdy"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./images/flying.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "845db19e-a15e-404d-af7c-a6059cfb1cb0"
+      }
     }
   }
 }

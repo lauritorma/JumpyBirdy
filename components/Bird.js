@@ -26,14 +26,14 @@ const Bird = props => {
         >
             <Image
             style={{
-                width: 65,
-                height: 70,
+                width: 85,
+                height: 79,
                 position: 'absolute',
-                marginTop: -15,
-                marginLeft: -6
+                marginTop: -13,
+                marginLeft: -19
                 
             }}
-            source={{uri: 'https://freesvg.org/img/frame-1m.png'}}
+            source={require('../images/flyingCreature.gif')}
             />
         </View>
     )

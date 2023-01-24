@@ -13,6 +13,7 @@ const Floor = props => {
 
     return (
         <View style={{
+            color: color,
             position: 'absolute',
             left: xBody,
             top: yBody,
