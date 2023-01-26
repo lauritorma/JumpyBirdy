@@ -16,7 +16,7 @@ export default restart => {
 
     let world = engine.world
 
-    world.gravity.y = 0.7;
+    world.gravity.y = 1.5;
 
     const pipeSizePOsA = getPipeSizePosPair(windowWidth * 0.7)
     const pipeSizePOsB = getPipeSizePosPair(windowWidth * 1.5)

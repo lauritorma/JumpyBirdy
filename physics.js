@@ -27,7 +27,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
         }
 
         if(entities[`ObstacleTop${index}`].body.bounds.max.x <= 0){
-           const pipeSizePos = getPipeSizePosPair(windowWidth * 0.5)
+           const pipeSizePos = getPipeSizePosPair(windowWidth * 0.6)
 
            
         Matter.Body.setPosition(entities[`ObstacleTop${index}`].body, pipeSizePos.pipeTop.pos)
@@ -37,13 +37,14 @@ const Physics = (entities, {touches, time, dispatch}) => {
     
         }
 
-        Matter.Body.translate(entities[`ObstacleTop${index}`].body, {x: -3, y: 0})
-        Matter.Body.translate(entities[`ObstacleBottom${index}`].body, {x: -3, y: 0})
+        Matter.Body.translate(entities[`ObstacleTop${index}`].body, {x: -3, y: 0.2})
+        Matter.Body.translate(entities[`ObstacleBottom${index}`].body, {x: -3, y: 0.2})
     }
    
 
     Matter.Events.on(engine, 'collisionStart', (event) => {
         dispatch({type: 'game_over'})
+        
     })
     return entities;
 

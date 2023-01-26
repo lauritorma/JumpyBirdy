@@ -10,15 +10,17 @@
   },
   "dependencies": {
     "expo": "~47.0.12",
+    "expo-av": "~13.0.2",
+    "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "expo-updates": "~0.15.6",
     "matter-js": "^0.18.0",
     "react": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-exit-app": "^1.1.0",
     "react-native-game-engine": "^1.2.0",
     "react-native-sound": "^0.11.2",
-    "react-native-sound-player": "^0.13.2",
-    "expo-av": "~13.0.2"
+    "react-native-sound-player": "^0.13.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

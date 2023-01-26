@@ -4,6 +4,7 @@
         "android": {
           "buildType": "apk"
         }
+        
       },
       "preview2": {
         "android": {

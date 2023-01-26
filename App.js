@@ -1,10 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
+import React, { BackHandler, useCallback, useEffect, useState } from 'react';
 import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import entities from './entities';
 import Physics from './physics';
 import AudioPlayer from './components/AudioPlayer';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import RNExitApp from 'react-native-exit-app';
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [running, setRunning] = useState(false)
@@ -20,6 +24,20 @@ export default function App() {
   useEffect(() => {
     setRunning(false)
   }, [])
+
+  const [fontsLoaded] = useFonts({
+    'Bungee-Regular': require('./assets/fonts/Bungee-Regular.ttf'),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <View style={{flex: 1, flexDirection: 'column'}}>
@@ -50,7 +68,7 @@ export default function App() {
             break;
           case 'new_point':
             setCurrentPoints(currentPoints + 1)
-            {AudioPlayer}
+            
             break;
 
         }
@@ -70,14 +88,14 @@ export default function App() {
 
       {gameOver ?
         <View style={{flex: 0, justifyContent: 'center', alignItems: 'center', bottom: '60%'}}>
-           <Text className="font-link" style={{textAlign: 'center', fontSize: 40, margin: 30, color: 'white', backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10}}>Your score: {currentPoints}</Text>
+           <Text className="font-link" style={{textAlign: 'center',fontFamily: 'Bungee-Regular', fontSize: 30, margin: 30, color: 'white', backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10}}>Your score:  {"\n"} {currentPoints}</Text>
 
         </View> : null }
       
       {!running ?
-        <View style={{flex: 0, justifyContent: 'center', alignItems: 'center', bottom: '50%'}}>
-          
-          <TouchableOpacity style={{backgroundColor: 'red', paddingHorizontal: 30, paddingVertical: 10}}
+        <View  onLayout={onLayoutRootView} style={{flex: 0, justifyContent: 'center', alignItems: 'center', bottom: '60%'}}>
+         
+          <TouchableOpacity style={{backgroundColor: 'green', paddingHorizontal: 30, paddingVertical: 10}}
           onPress={() => {
             setCurrentPoints(0)
             setRunning(true)
@@ -87,7 +105,14 @@ export default function App() {
           }}
           >
            
-            <Text style={{fontWeight: 'bold', color: 'white', fontSize: 20, textAlign: 'center'}}>START GAME</Text>
+            <Text style={{fontFamily: 'Bungee-Regular', color: 'white', fontSize: 20, textAlign: 'center'}}>START GAME</Text>
+          </TouchableOpacity>
+          <TouchableOpacity  style={{backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10, margin: 30}}
+          onPress={() => {
+            RNExitApp.exitApp();
+          }}
+          >
+            <Text style={{fontFamily: 'Bungee-Regular', color: 'white', fontSize: 20, textAlign: 'center'}}>Quit</Text>
           </TouchableOpacity>
 
         </View> : null }
